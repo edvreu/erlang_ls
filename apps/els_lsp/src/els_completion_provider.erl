@@ -218,6 +218,12 @@ find_completions(
         %% Check for "[...] #anything.something"
         [_, {'.', _}, {atom, _, RecordName}, {'#', _} | _] ->
             record_fields(Document, RecordName);
+        %% Check for "[...] #anything{"
+        [{'{', _}, {atom, _, RecordName}, {'#', _} | _] ->
+            record_fields(Document, RecordName);
+        %% Check for "[...] #anything{something = value,"
+        [{',', _}, _, {'=', _}, _, {'{', _}, {atom, _, RecordName}, {'#', _} | _] ->
+            record_fields(Document, RecordName);
         %% Check for "[...] #"
         [{'#', _} | _] ->
             definitions(Document, record);

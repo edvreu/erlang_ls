@@ -879,6 +879,14 @@ record_fields(Config) ->
         els_client:completion(Uri, 34, 22, TriggerKindInvoked, <<"">>),
     ?assertEqual(lists:sort(Expected1), lists:sort(Completion2)),
 
+    #{result := Completion3} =
+        els_client:completion(Uri, 33, 17, TriggerKindInvoked, <<"">>),
+    ?assertEqual(lists:sort(Expected1), lists:sort(Completion3)),
+
+    #{result := Completion4} =
+        els_client:completion(Uri, 33, 30, TriggerKindInvoked, <<"">>),
+    ?assertEqual(lists:sort(Expected1), lists:sort(Completion4)),
+
     Expected2 = [
         #{
             kind => ?COMPLETION_ITEM_KIND_FIELD,
@@ -889,13 +897,13 @@ record_fields(Config) ->
             label => <<"included_field_b">>
         }
     ],
-    #{result := Completion3} =
+    #{result := Completion5} =
         els_client:completion(Uri, 52, 60, TriggerKindChar, <<".">>),
-    ?assertEqual(lists:sort(Expected2), lists:sort(Completion3)),
+    ?assertEqual(lists:sort(Expected2), lists:sort(Completion5)),
 
-    #{result := Completion4} =
+    #{result := Completion6} =
         els_client:completion(Uri, 52, 63, TriggerKindInvoked, <<"">>),
-    ?assertEqual(lists:sort(Expected2), lists:sort(Completion4)),
+    ?assertEqual(lists:sort(Expected2), lists:sort(Completion6)),
 
     ExpectedQuoted = [
         #{
@@ -907,9 +915,9 @@ record_fields(Config) ->
             label => <<"'Field #2'">>
         }
     ],
-    #{result := Completion5} =
+    #{result := Completion7} =
         els_client:completion(Uri, 52, 90, TriggerKindChar, <<".">>),
-    ?assertEqual(lists:sort(ExpectedQuoted), lists:sort(Completion5)),
+    ?assertEqual(lists:sort(ExpectedQuoted), lists:sort(Completion7)),
 
     ok.
 

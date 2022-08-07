@@ -30,7 +30,7 @@ callback_a() ->
 
 function_c() ->
   code_navigation_extra:do(test),
-  A = #record_a{ field_a = a },
+  A = #record_a{ field_a = a, 'Field C' = c },
   _X = A#record_a.field_a, _Y = A#record_a.field_a,
   length([1, 2, 3]).
 
